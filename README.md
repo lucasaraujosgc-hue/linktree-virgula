@@ -19,7 +19,7 @@ editor.html            editor visual  (fica em  /editar )
 data.js                OS DADOS: perfil, botões e redes  ← é o que muda no dia a dia
 icons.js               biblioteca de ícones
 theme.css              o visual
-favicon.svg            ícone da aba
+icon-192.png           ícone da aba + avatar da página (vem do site WP)
 og-image.png           imagem de compartilhamento (WhatsApp etc.)
 nginx/default.conf     servidor + tabela de LINKS CURTOS
 Dockerfile             empacota tudo com nginx

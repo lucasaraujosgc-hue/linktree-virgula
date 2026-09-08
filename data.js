@@ -8,7 +8,7 @@ window.LINKTREE = {
   profile: {
     name:    "Vírgula",
     suffix:  "Contábil",
-    tagline: "Lucas Araújo · Contador · São Gonçalo dos Campos, BA"
+    tagline: ""
   },
 
   // primary: true  => botão laranja de destaque (use em 1 só)

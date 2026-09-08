@@ -5,7 +5,7 @@ FROM nginx:1.27-alpine
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # arquivos do site
-COPY index.html editor.html theme.css icons.js data.js favicon.svg og-image.png /usr/share/nginx/html/
+COPY index.html editor.html theme.css icons.js data.js icon-192.png og-image.png /usr/share/nginx/html/
 
 EXPOSE 80
 
