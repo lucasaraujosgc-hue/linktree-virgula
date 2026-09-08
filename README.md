@@ -14,10 +14,14 @@ Docker. Sem banco de dados, sem build, sem manutenção.
 ## 1. Arquivos
 
 ```
-index.html            a página (título, links e redes ficam no <script> no fim do arquivo)
+index.html            a página
+editor.html            editor visual  (fica em  /editar )
+data.js                OS DADOS: perfil, botões e redes  ← é o que muda no dia a dia
+icons.js               biblioteca de ícones
+theme.css              o visual
 favicon.svg            ícone da aba
-og-image.png           imagem que aparece quando o link é compartilhado (WhatsApp etc.)
-nginx/default.conf     configuração do servidor + tabela de LINKS CURTOS
+og-image.png           imagem de compartilhamento (WhatsApp etc.)
+nginx/default.conf     servidor + tabela de LINKS CURTOS
 Dockerfile             empacota tudo com nginx
 ```
 
@@ -25,23 +29,50 @@ Dockerfile             empacota tudo com nginx
 
 ## 2. Como editar
 
-### 2.1 Os botões da página
+### 2.1 Os botões da página — pelo editor visual (recomendado)
 
-Abra o **`index.html`**, role até o comentário `EDITE AQUI` e mexa nas listas:
+Abra **`https://links.virgulacontabil.com.br/editar`**. Dá pra:
+
+- mudar nome / frase;
+- adicionar, editar, **reordenar** (arrastar ou ↑ ↓) e remover botões;
+- escolher o **ícone** de cada um numa lista;
+- marcar um botão como **destaque** (laranja);
+- ver o resultado ao vivo no preview.
+
+Quando terminar, na seção **Publicar** escolha um jeito:
+
+- **⬇ Baixar data.js** → troque o `data.js` da pasta do projeto por esse e rode
+  `git add data.js && git commit -m "novos links" && git push`.
+- **🚀 Salvar direto no GitHub** → cole um *token fino* do GitHub (uma vez) e o editor
+  faz o commit sozinho; com **Auto Deploy** ligado no EasyPanel, a página atualiza em ~1 min.
+  O token fica só no seu navegador.
+
+> O editor não tem senha (qualquer um pode abrir `/editar`), mas ele **não altera nada
+> sozinho** — a página só muda quando o `data.js` novo entra no repositório. Se quiser
+> proteger mesmo assim, veja a seção 8.
+
+### 2.2 Os botões da página — editando o arquivo
+
+Se preferir, abra **`data.js`** direto. É JavaScript simples:
 
 ```js
-const LINKS = [
-  { label: 'Falar no WhatsApp', href: 'https://wa.me/5575981200125', icon: 'whatsapp', primary: true },
-  { label: 'Área do Cliente',   href: 'https://cliente.virgulacontabil.com.br', icon: 'user' },
-  // ...adicione/edite/remova linhas
-];
+window.LINKTREE = {
+  profile: { name: "Vírgula", suffix: "Contábil", tagline: "..." },
+  links: [
+    { label: "Falar no WhatsApp", href: "https://wa.me/5575991161728", icon: "whatsapp", primary: true },
+    // ...adicione / edite / remova linhas
+  ],
+  socials: [ /* ... */ ]
+};
 ```
 
 - `primary: true` deixa o botão laranja (use em 1 só).
-- `icon` pode ser: `whatsapp, user, wallet, calculator, book, news, globe, instagram, mail`.
-- Evite os caracteres `< > &` no `label`.
+- Ícones disponíveis: veja as chaves no topo do `icons.js`
+  (`whatsapp, user, wallet, dollar, tag, calculator, briefcase, book, cap, news,
+  file-text, calendar, map-pin, globe, instagram, facebook, linkedin, youtube,
+  star, heart, shield, trending-up, help, chat, phone, mail, link`).
 
-### 2.2 Os links curtos
+### 2.3 Os links curtos
 
 Abra **`nginx/default.conf`** e edite o bloco `map`:
 
@@ -64,13 +95,13 @@ Depois de qualquer edição: **commit + push** (passo 5). O EasyPanel republica 
 
 ## 3. Testar no seu PC (opcional)
 
-Só abrir o `index.html` no navegador já mostra a página.
-Pra testar os links curtos também, com Docker instalado:
+Abrir o `index.html` (ou o `editor.html`) direto no navegador já funciona.
+Pra testar os links curtos e a rota `/editar` também, com Docker instalado:
 
 ```bash
 docker build -t links .
 docker run --rm -p 8080:80 links
-# abra http://localhost:8080  e  http://localhost:8080/cliente
+# abra  http://localhost:8080   http://localhost:8080/editar   http://localhost:8080/cliente
 ```
 
 ---
@@ -153,11 +184,11 @@ Quando alguém abre `links.virgulacontabil.com.br/cliente`, o nginx olha a tabel
 `map` do `nginx/default.conf`, acha `/cliente` e responde um **redirect 301**
 (permanente) pro destino. Não passa pela página, é instantâneo.
 
-Já vêm prontos: `/cliente` `/financeiro` `/trabalhista` `/cursos` `/blog` `/site`
-`/wpp` `/whatsapp` `/ig` `/email`.
+Já vêm prontos: `/cliente` `/financeiro` `/calculadora` `/preco` `/trabalhista`
+`/cursos` `/blog` `/site` `/wpp` `/whatsapp` `/ig` `/email`.
 
 **Adicionar um novo:**
-1. edite o `map` (passo 2.2);
+1. edite o `map` (passo 2.3);
 2. `git add . && git commit -m "novo link /promo" && git push`;
 3. o EasyPanel republica; teste em aba anônima.
 
@@ -178,7 +209,30 @@ no EasyPanel.
 
 ---
 
-## 8. (Opcional) Encurtador com painel e estatísticas — YOURLS
+## 8. (Opcional) Proteger o `/editar` com senha
+
+O editor não muda nada sozinho, mas se quiser esconder ele:
+
+**No EasyPanel** (jeito fácil): serviço `links` → aba **Basic Auth** (ou *Password
+Protection*) → defina usuário e senha → em *Paths* coloque `/editar` e `/editor.html`.
+
+**Ou no nginx** (`nginx/default.conf`), dentro do bloco `location = /editar`:
+```nginx
+location = /editar {
+    auth_basic "Editor";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    try_files /editor.html =404;
+}
+```
+e adicione no `Dockerfile`, antes do `EXPOSE`:
+```dockerfile
+RUN apk add --no-cache apache2-utils && \
+    htpasswd -bc /etc/nginx/.htpasswd lucas SUA_SENHA_AQUI
+```
+
+---
+
+## 9. (Opcional) Encurtador com painel e estatísticas — YOURLS
 
 O método acima é ótimo, mas pra criar link novo você edita um arquivo. Se quiser
 um **painel web** com contador de cliques, dá pra rodar o **YOURLS** no mesmo VPS:
@@ -201,7 +255,7 @@ um **painel web** com contador de cliques, dá pra rodar o **YOURLS** no mesmo V
 
 ---
 
-## 9. Colocar na bio do Instagram
+## 10. Colocar na bio do Instagram
 
 - Instagram → *Editar perfil* → **Links** → *Adicionar link externo*:
   `https://links.virgulacontabil.com.br`
