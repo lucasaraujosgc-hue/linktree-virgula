@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 08/09/2026, 17:23:16.
+/* Gerado pelo editor (/editar) em 08/09/2026, 17:26:13.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
