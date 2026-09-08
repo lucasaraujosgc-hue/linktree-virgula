@@ -39,6 +39,9 @@ Abra **`https://links.virgulacontabil.com.br/editar`**. Dá pra:
 - marcar um botão como **destaque** (laranja);
 - ver o resultado ao vivo no preview.
 
+O `/editar` é **protegido por senha** (usuário `lucas`, senha = o Build Arg
+`EDITOR_PASS` que você define no EasyPanel — ver seção 8).
+
 Quando terminar, na seção **Publicar** escolha um jeito:
 
 - **⬇ Baixar data.js** → troque o `data.js` da pasta do projeto por esse e rode
@@ -47,9 +50,10 @@ Quando terminar, na seção **Publicar** escolha um jeito:
   faz o commit sozinho; com **Auto Deploy** ligado no EasyPanel, a página atualiza em ~1 min.
   O token fica só no seu navegador.
 
-> O editor não tem senha (qualquer um pode abrir `/editar`), mas ele **não altera nada
-> sozinho** — a página só muda quando o `data.js` novo entra no repositório. Se quiser
-> proteger mesmo assim, veja a seção 8.
+> A mudança **só entra no ar quando o `data.js` novo chega no repositório** e o
+> EasyPanel rebuilda. O navegador revalida os arquivos a cada visita (`Cache-Control:
+> no-cache`), então a atualização aparece sozinha — sem precisar de aba anônima.
+> (Se você tinha visitado a página com a versão antiga do tema, dê **um** Ctrl+Shift+R.)
 
 ### 2.2 Os botões da página — editando o arquivo
 
@@ -150,7 +154,9 @@ git push -u origin main
    - **Add Domain**: `links.virgulacontabil.com.br`
    - **Port**: `80`   ← a porta do container, não a do site
    - Deixe **HTTPS** ligado (Let's Encrypt automático).
-8. (Recomendado) Aba **Deployments** ou **Settings** → ligue **Auto Deploy**:
+8. Aba **Build → Build Arguments** (ou **Environment**): adicione `EDITOR_PASS` com
+   a senha do `/editar` (ver seção 8). Sem isso o editor sobe trancado.
+9. (Recomendado) Aba **Deployments** ou **Settings** → ligue **Auto Deploy**:
    a cada `git push` na `main` ele republica.
 
 ### Não funcionou? Checklist
@@ -162,7 +168,9 @@ git push -u origin main
 | Abre a tela padrão do EasyPanel / "no such app" | Domínio não foi adicionado ao serviço, ou o DNS não aponta pro VPS (passo 6). |
 | Erro de certificado / "sua conexão não é privada" | DNS ainda não propagou, ou não aponta pro IP certo. Espere e clique em *reissue* no EasyPanel. |
 | Página abre mas sem estilo / botões | Só acontece se `theme.css`/`data.js` derem 404 — não deve ocorrer com este Dockerfile. Recarregue sem cache (Ctrl+Shift+R). |
-| `/cliente` etc. não redireciona | Deploy antigo. Force um *Rebuild* no EasyPanel e teste em aba anônima. |
+| Editei no `/editar`, foi pro GitHub, mas a página não muda (só em aba anônima) | Era o cache do navegador. Já corrigido (`Cache-Control: no-cache`). Depois do próximo deploy, dê **um** Ctrl+Shift+R e nunca mais. |
+| `/editar` não pede senha, ou a senha não funciona | Faltou o Build Arg `EDITOR_PASS` (seção 8) ou faltou Rebuild depois de definir. |
+| `/cliente` etc. não redireciona | Deploy antigo. Force um *Rebuild* no EasyPanel. |
 
 Se travar, me manda **o log do Build** e **o log do serviço** (abas do EasyPanel).
 
@@ -220,26 +228,32 @@ no EasyPanel.
 
 ---
 
-## 8. (Opcional) Proteger o `/editar` com senha
+## 8. A senha do `/editar`
 
-O editor não muda nada sozinho, mas se quiser esconder ele:
+O `/editar` (e o `/editor.html`) já pede **usuário e senha** (HTTP Basic Auth).
+A página pública e os links curtos continuam abertos — só o editor é trancado.
 
-**No EasyPanel** (jeito fácil): serviço `links` → aba **Basic Auth** (ou *Password
-Protection*) → defina usuário e senha → em *Paths* coloque `/editar` e `/editor.html`.
+A senha **não fica no repositório**. Ela vem de um *Build Arg* que você define no
+EasyPanel:
 
-**Ou no nginx** (`nginx/default.conf`), dentro do bloco `location = /editar`:
-```nginx
-location = /editar {
-    auth_basic "Editor";
-    auth_basic_user_file /etc/nginx/.htpasswd;
-    try_files /editor.html =404;
-}
-```
-e adicione no `Dockerfile`, antes do `EXPOSE`:
-```dockerfile
-RUN apk add --no-cache apache2-utils && \
-    htpasswd -bc /etc/nginx/.htpasswd lucas SUA_SENHA_AQUI
-```
+1. EasyPanel → serviço `links` → aba **Build** (ou **Environment → Build Arguments**).
+2. Adicione:
+
+   | Nome | Valor |
+   |------|-------|
+   | `EDITOR_PASS` | *a senha que você quiser* |
+   | `EDITOR_USER` | `lucas` *(opcional — já é o padrão)* |
+
+3. **Rebuild**. Pronto: ao abrir `/editar` o navegador pede login.
+
+Sem o `EDITOR_PASS`, o build ainda funciona, mas o `/editar` sobe **trancado com uma
+senha aleatória** (ninguém consegue editar). O aviso aparece no log do build.
+
+Para trocar a senha depois: mude o `EDITOR_PASS` no EasyPanel e faça Rebuild.
+
+> Observação: o Build Arg fica visível pra quem tem acesso de shell ao próprio VPS
+> (`docker history`). Pra esse editor, sem problema — mesmo entrando, ainda é preciso
+> o *token do GitHub* pra publicar qualquer coisa.
 
 ---
 
