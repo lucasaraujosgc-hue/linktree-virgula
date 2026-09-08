@@ -342,10 +342,16 @@
     $('btn-download').addEventListener('click', function () { download('data.js', toDataJs()); });
 
     $('btn-copy').addEventListener('click', function () {
-      navigator.clipboard.writeText(toDataJs()).then(function () {
+      var txt = toDataJs(), done = function () {
         $('btn-copy').textContent = '✓ Copiado';
         setTimeout(function () { $('btn-copy').textContent = '📋 Copiar'; }, 1500);
-      });
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(done, function () { $('output').select(); });
+      } else {
+        $('output').select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+      }
     });
 
     $('btn-reset').addEventListener('click', function () {
