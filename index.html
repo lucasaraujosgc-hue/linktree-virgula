@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <!-- ======================================================================
+       SEO / compartilhamento — troque a URL e o texto se precisar
+       ====================================================================== -->
+  <title>Vírgula Contábil — Todos os links</title>
+  <meta name="description" content="Área do cliente, painel financeiro, calculadora trabalhista, cursos, blog e contato da Vírgula Contábil num lugar só." />
+  <link rel="canonical" href="https://links.virgulacontabil.com.br/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vírgula Contábil" />
+  <meta property="og:title" content="Vírgula Contábil — Todos os links" />
+  <meta property="og:description" content="Área do cliente, painel financeiro, calculadora trabalhista, cursos, blog e contato — num lugar só." />
+  <meta property="og:url" content="https://links.virgulacontabil.com.br/" />
+  <meta property="og:image" content="https://links.virgulacontabil.com.br/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="theme-color" content="#022C22" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:        #022C22;
+      --green-soft:   #063a2d;
+      --orange:       #F97316;
+      --orange-hover: #EA580C;
+      --paper:        #F8FAFC;
+      --muted:        rgba(248, 250, 252, 0.62);
+      --card:         rgba(255, 255, 255, 0.055);
+      --card-hover:   rgba(255, 255, 255, 0.09);
+      --line:         rgba(255, 255, 255, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--paper);
+      background:
+        radial-gradient(60rem 40rem at 50% -10%, rgba(249, 115, 22, 0.16), transparent 60%),
+        radial-gradient(50rem 40rem at 50% 120%, rgba(16, 185, 129, 0.14), transparent 60%),
+        var(--green);
+      display: flex;
+      justify-content: center;
+      padding: clamp(2rem, 8vw, 4rem) 1.25rem calc(2.5rem + env(safe-area-inset-bottom));
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { width: 100%; max-width: 30rem; }
+
+    /* ---- Cabeçalho ---- */
+    .avatar {
+      width: 108px; height: 108px; margin: 0 auto 1.25rem;
+      border-radius: 28px;
+      background: linear-gradient(150deg, var(--green-soft), var(--green));
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+    .avatar svg { display: block; width: 100%; height: 100%; }
+
+    .name {
+      text-align: center;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 7vw, 2.2rem);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .name b { color: var(--orange); font-weight: 700; }
+    .suffix {
+      display: block;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-left: 0.42em;
+    }
+    .tagline {
+      text-align: center;
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ---- Links ---- */
+    .links { display: grid; gap: 0.7rem; margin-top: 2rem; }
+
+    .link {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1rem 1.15rem;
+      border-radius: 1rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 0.95rem; font-weight: 600;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+    .link:hover, .link:focus-visible {
+      background: var(--card-hover);
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .link__label { flex: 1; }
+    .link__icon { flex-shrink: 0; opacity: 0.95; }
+    .link__go { flex-shrink: 0; opacity: 0.5; }
+
+    .link--primary {
+      background: var(--orange);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 16px 34px -14px rgba(249, 115, 22, 0.6);
+    }
+    .link--primary:hover, .link--primary:focus-visible {
+      background: var(--orange-hover);
+      border-color: transparent;
+    }
+    .link--primary .link__go { opacity: 0.8; }
+
+    /* ---- Redes ---- */
+    .socials { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1.9rem; }
+    .social {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--paper);
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .social:hover, .social:focus-visible { color: var(--orange); border-color: var(--orange); background: var(--card); }
+
+    .foot {
+      text-align: center;
+      margin-top: 2.2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .foot a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+
+    /* animação de entrada */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(10px); animation: rise 0.5s ease forwards; }
+      @keyframes rise { to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="avatar reveal" aria-hidden="true">
+      <svg viewBox="0 0 64 64">
+        <text x="33" y="59" text-anchor="middle" font-family="Fraunces, Georgia, serif"
+              font-weight="700" font-size="86" fill="#F97316">,</text>
+      </svg>
+    </div>
+
+    <h1 class="name reveal" style="animation-delay:.05s">
+      <span id="p-name">Vírgula</span><b>,</b>
+    </h1>
+    <span class="suffix reveal" id="p-suffix" style="animation-delay:.08s">Contábil</span>
+    <p class="tagline reveal" id="p-tagline" style="animation-delay:.11s"></p>
+
+    <nav class="links" id="links" aria-label="Meus links"></nav>
+    <div class="socials" id="socials"></div>
+
+    <noscript>
+      <nav class="links" aria-label="Meus links">
+        <a class="link link--primary" href="https://wa.me/5575981200125">Falar no WhatsApp</a>
+        <a class="link" href="https://cliente.virgulacontabil.com.br">Área do Cliente</a>
+        <a class="link" href="https://financeiro.virgulacontabil.com.br">Painel Financeiro</a>
+        <a class="link" href="https://trabalhista.virgulacontabil.com.br">Calculadora Trabalhista</a>
+        <a class="link" href="https://virgulacontabil.com.br">Site oficial</a>
+      </nav>
+    </noscript>
+
+    <footer class="foot reveal">
+      © <span id="year"></span> Vírgula Contábil ·
+      <a href="https://virgulacontabil.com.br" target="_blank" rel="noopener">virgulacontabil.com.br</a>
+    </footer>
+  </main>
+
+  <script>
+    /* =====================================================================
+       EDITE AQUI  — é só isto que muda no dia a dia.
+       ===================================================================== */
+    const PROFILE = {
+      name:    'Vírgula',
+      suffix:  'Contábil',
+      tagline: 'Contabilidade digital · São Gonçalo dos Campos, BA',
+    };
+
+    // primary: true  → botão laranja de destaque
+    const LINKS = [
+      { label: 'Falar no WhatsApp',        href: 'https://wa.me/5575981200125',                 icon: 'whatsapp', primary: true },
+      { label: 'Área do Cliente',          href: 'https://cliente.virgulacontabil.com.br',       icon: 'user' },
+      { label: 'Painel Financeiro',        href: 'https://financeiro.virgulacontabil.com.br',    icon: 'wallet' },
+      { label: 'Calculadora Trabalhista',  href: 'https://trabalhista.virgulacontabil.com.br',   icon: 'calculator' },
+      { label: 'Cursos Vírgula',           href: 'https://cursos.virgulacontabil.com.br',        icon: 'book' },
+      { label: 'Blog & Notícias',          href: 'https://virgulacontabil.com.br/blog',          icon: 'news' },
+      { label: 'Site oficial',             href: 'https://virgulacontabil.com.br',               icon: 'globe' },
+    ];
+
+    const SOCIALS = [
+      { label: 'Instagram', href: 'https://instagram.com/virgulacontabil', icon: 'instagram' },
+      { label: 'WhatsApp',  href: 'https://wa.me/5575981200125',           icon: 'whatsapp' },
+      { label: 'E-mail',    href: 'mailto:contato@virgulacontabil.com.br', icon: 'mail' },
+    ];
+    /* ===================================================================== */
+
+    const ICONS = {
+      whatsapp:   '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/>',
+      user:       '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      wallet:     '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>',
+      calculator: '<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8M16 14v4M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"/>',
+      book:       '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>',
+      news:       '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5"/>',
+      globe:      '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/>',
+      instagram:  '<rect width="20" height="20" x="2" y="2" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/>',
+      mail:       '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+      go:         '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+    };
+    const svg = (name, cls) =>
+      `<svg class="${cls}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
+
+    document.getElementById('p-name').textContent    = PROFILE.name;
+    document.getElementById('p-suffix').textContent  = PROFILE.suffix;
+    document.getElementById('p-tagline').textContent = PROFILE.tagline;
+    document.getElementById('year').textContent      = new Date().getFullYear();
+    document.title = `${PROFILE.name} ${PROFILE.suffix} — Todos os links`;
+
+    document.getElementById('links').innerHTML = LINKS.map((l, i) => `
+      <a class="link reveal ${l.primary ? 'link--primary' : ''}"
+         style="animation-delay:${0.14 + i * 0.05}s"
+         href="${l.href}" target="_blank" rel="noopener">
+        ${svg(l.icon, 'link__icon')}
+        <span class="link__label">${l.label}</span>
+        ${svg('go', 'link__go')}
+      </a>`).join('');
+
+    document.getElementById('socials').innerHTML = SOCIALS.map(s => `
+      <a class="social reveal" href="${s.href}" target="_blank" rel="noopener" aria-label="${s.label}" title="${s.label}">
+        ${svg(s.icon, '')}
+      </a>`).join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Vírgula Contábil — página de links (site estático servido pelo nginx)
+FROM nginx:1.27-alpine
+
+# configuração (serve o site + redireciona os links curtos)
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# arquivos do site
+COPY index.html favicon.svg og-image.png /usr/share/nginx/html/
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD wget -qO- http://localhost/ >/dev/null 2>&1 || exit 1
