@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 08/09/2026, 17:41:21.
+/* Gerado pelo editor (/editar) em 08/09/2026, 19:04:44.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
@@ -19,10 +19,16 @@ window.LINKTREE = {
       "icon": "user"
     },
     {
+      "label": "Calculadora de Preço",
+      "href": "https://calculadora.virgulacontabil.com.br",
+      "icon": "dollar",
+      "primary": true
+    },
+    {
       "label": "Blog & Notícias",
       "href": "https://virgulacontabil.com.br/blog",
       "icon": "news",
-      "primary": true
+      "primary": false
     },
     {
       "label": "Painel Financeiro",
@@ -39,12 +45,6 @@ window.LINKTREE = {
       "label": "Site oficial",
       "href": "https://www.virgulacontabil.com.br",
       "icon": "globe"
-    },
-    {
-      "label": "Calculadora de Preço",
-      "href": "https://calculadora.virgulacontabil.com.br",
-      "icon": "dollar",
-      "primary": true
     }
   ],
   "socials": [
