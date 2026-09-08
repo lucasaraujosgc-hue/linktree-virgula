@@ -74,20 +74,20 @@ window.LINKTREE = {
 
 ### 2.3 Os links curtos
 
-Abra **`nginx/default.conf`** e edite o bloco `map`:
+Abra **`nginx/default.conf`**, ache o bloco `LINKS CURTOS` e copie uma linha:
 
 ```nginx
-map $uri $short_target {
-    default        "";
-    /cliente       https://cliente.virgulacontabil.com.br;
-    /promo         https://link-gigante-de-campanha.com/?utm=ig;   # <- linha nova
-}
+    location = /cliente { return 302 https://cliente.virgulacontabil.com.br; }
+    location = /promo   { return 302 https://link-gigante-de-campanha.com/?utm=ig; }   # nova
 ```
 
 Regras:
-- comece sempre com `/`, sem espaço no apelido (`/promo`, não `/minha promo`);
-- **não apague** a linha `default "";` (tem que ser a primeira);
-- cada linha termina com `;`.
+- o apelido começa com `/` e não tem espaço (`/promo`, nunca `/minha promo`);
+- a linha inteira termina com `}`.
+
+São redirects **302** (temporário) de propósito — assim o navegador não guarda em
+cache e você pode trocar o destino quando quiser. (Se algum link nunca vai mudar,
+troque o `302` por `301`.)
 
 Depois de qualquer edição: **commit + push** (passo 5). O EasyPanel republica sozinho.
 
@@ -141,14 +141,30 @@ git push -u origin main
      escolha o repositório `linktree-virgula`, branch `main`.
    - *(ou)* **Git**: cole `https://github.com/lucasaraujosgc-hue/linktree-virgula.git`
      (funciona direto se o repo for público).
-5. Aba **Build**: método = **Dockerfile** (o EasyPanel acha o `Dockerfile` sozinho).
-6. Clique em **Deploy**. Espere o build terminar (uns 30–60s).
+5. Aba **Build**: método = **Dockerfile**. ⚠️ Isto é obrigatório — se ficar em
+   *Nixpacks* (o padrão), o build falha ou sobe uma página vazia.
+   Deixe o campo *Dockerfile Path* em `Dockerfile` (ou vazio).
+6. Clique em **Deploy**. Espere o build (uns 30–60s). Se der erro, abra o **log do
+   build** — a linha `RUN nginx -t` mostra qualquer erro de configuração.
 7. Aba **Domains**:
    - **Add Domain**: `links.virgulacontabil.com.br`
-   - **Port**: `80`
+   - **Port**: `80`   ← a porta do container, não a do site
    - Deixe **HTTPS** ligado (Let's Encrypt automático).
 8. (Recomendado) Aba **Deployments** ou **Settings** → ligue **Auto Deploy**:
    a cada `git push` na `main` ele republica.
+
+### Não funcionou? Checklist
+
+| Sintoma | Causa provável |
+|---|---|
+| Build falha | Método não é *Dockerfile* (passo 5). Veja o log do build. |
+| "502 Bad Gateway" / "Service unavailable" | **Port** errada nos Domains — tem que ser **80**. Ou o container caiu: veja a aba **Logs** do serviço. |
+| Abre a tela padrão do EasyPanel / "no such app" | Domínio não foi adicionado ao serviço, ou o DNS não aponta pro VPS (passo 6). |
+| Erro de certificado / "sua conexão não é privada" | DNS ainda não propagou, ou não aponta pro IP certo. Espere e clique em *reissue* no EasyPanel. |
+| Página abre mas sem estilo / botões | Só acontece se `theme.css`/`data.js` derem 404 — não deve ocorrer com este Dockerfile. Recarregue sem cache (Ctrl+Shift+R). |
+| `/cliente` etc. não redireciona | Deploy antigo. Force um *Rebuild* no EasyPanel e teste em aba anônima. |
+
+Se travar, me manda **o log do Build** e **o log do serviço** (abas do EasyPanel).
 
 ---
 
@@ -180,26 +196,21 @@ Pronto: `https://links.virgulacontabil.com.br` no ar.
 
 ## 7. Como funcionam os links curtos
 
-Quando alguém abre `links.virgulacontabil.com.br/cliente`, o nginx olha a tabela
-`map` do `nginx/default.conf`, acha `/cliente` e responde um **redirect 301**
-(permanente) pro destino. Não passa pela página, é instantâneo.
+Quando alguém abre `links.virgulacontabil.com.br/cliente`, o nginx acha a linha
+`location = /cliente` no `nginx/default.conf` e responde um **redirect 302** pro
+destino. Não passa pela página, é instantâneo.
 
 Já vêm prontos: `/cliente` `/financeiro` `/calculadora` `/preco` `/trabalhista`
 `/cursos` `/blog` `/site` `/wpp` `/whatsapp` `/ig` `/email`.
 
-**Adicionar um novo:**
-1. edite o `map` (passo 2.3);
-2. `git add . && git commit -m "novo link /promo" && git push`;
-3. o EasyPanel republica; teste em aba anônima.
+**Adicionar um novo:** copie uma linha no bloco `LINKS CURTOS` (passo 2.3),
+`git commit && git push`, o EasyPanel republica.
 
 **Testar pelo terminal:**
 ```bash
 curl -I https://links.virgulacontabil.com.br/cliente
-# tem que aparecer: HTTP/2 301  e  location: https://cliente.virgulacontabil.com.br
+# tem que aparecer: HTTP/... 302  e  location: https://cliente.virgulacontabil.com.br
 ```
-
-Dica: o navegador **guarda o 301 em cache**. Se mudar o destino de um apelido que
-já usou, teste em aba anônima ou troque o apelido.
 
 ### Quer um domínio mais curto?
 `links.virgulacontabil.com.br/cliente` já é curto. Se quiser algo tipo `vrgl.com.br/cliente`,
