@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 08/09/2026, 19:04:44.
+/* Gerado pelo editor (/editar) em 09/09/2026, 05:50:19.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
@@ -22,7 +22,7 @@ window.LINKTREE = {
       "label": "Calculadora de Preço",
       "href": "https://calculadora.virgulacontabil.com.br",
       "icon": "dollar",
-      "primary": true
+      "primary": false
     },
     {
       "label": "Blog & Notícias",
@@ -39,7 +39,7 @@ window.LINKTREE = {
       "label": "Cursos Vírgula",
       "href": "https://cursos.virgulacontabil.com.br",
       "icon": "cap",
-      "primary": true
+      "primary": false
     },
     {
       "label": "Site oficial",
