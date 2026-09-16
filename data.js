@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 09/09/2026, 05:51:26.
+/* Gerado pelo editor (/editar) em 16/09/2026, 10:46:49.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
@@ -26,7 +26,7 @@ window.LINKTREE = {
     },
     {
       "label": "Blog & Notícias",
-      "href": "https://virgulacontabil.com.br/blog",
+      "href": "https://www.virgulacontabil.com.br/blog",
       "icon": "news",
       "primary": false
     },
