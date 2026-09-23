@@ -29,8 +29,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="theme.css" />
+
+  <!-- Meta Pixel — deixe o ID vazio ('') para desligar -->
+  <script>
+    window.META_PIXEL_ID = '28898269556436096';
+    if (window.META_PIXEL_ID) {
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', window.META_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+  </script>
+  <!-- End Meta Pixel -->
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" alt=""
+    src="https://www.facebook.com/tr?id=28898269556436096&ev=PageView&noscript=1" /></noscript>
+
   <main class="wrap">
     <div class="avatar reveal">
       <img src="icon-192.png" width="110" height="110" alt="Vírgula Contábil" />
@@ -101,6 +122,21 @@
           window.iconSvg(s.icon, 22, '') + '</a>';
       }).join('');
     })();
+
+    // Meta Pixel — cliques nos botões (#links e #socials)
+    document.addEventListener('click', function (e) {
+      if (!window.fbq) return;
+      var a = e.target.closest && e.target.closest('#links a, #socials a');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var labelEl = a.querySelector('.link__label');
+      var name = (labelEl ? labelEl.textContent : a.getAttribute('aria-label')) || href;
+      var isContact = /wa\.me|whatsapp/i.test(href) || /^mailto:/i.test(href);
+      fbq('track', isContact ? 'Contact' : 'ViewContent', {
+        content_name: name.trim(),
+        content_category: 'links_bio'
+      });
+    });
   </script>
 </body>
 </html>
