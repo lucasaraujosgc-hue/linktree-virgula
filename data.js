@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 16/09/2026, 10:46:49.
+/* Gerado pelo editor (/editar) em 23/09/2026, 11:29:11.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
@@ -8,15 +8,21 @@ window.LINKTREE = {
   },
   "links": [
     {
-      "label": "Falar no WhatsApp",
-      "href": "https://wa.me/5575991161728",
-      "icon": "whatsapp",
+      "label": "Cursos Vírgula",
+      "href": "https://cursos.virgulacontabil.com.br",
+      "icon": "cap",
       "primary": true
     },
     {
       "label": "Área do Cliente",
       "href": "https://cliente.virgulacontabil.com.br",
       "icon": "user"
+    },
+    {
+      "label": "Falar no WhatsApp",
+      "href": "https://wa.me/5575991161728",
+      "icon": "whatsapp",
+      "primary": true
     },
     {
       "label": "Calculadora de Preço",
@@ -34,12 +40,6 @@ window.LINKTREE = {
       "label": "Painel Financeiro",
       "href": "https://financeiro.virgulacontabil.com.br",
       "icon": "wallet"
-    },
-    {
-      "label": "Cursos Vírgula",
-      "href": "https://cursos.virgulacontabil.com.br",
-      "icon": "cap",
-      "primary": false
     },
     {
       "label": "Site oficial",
