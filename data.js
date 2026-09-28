@@ -1,4 +1,4 @@
-/* Gerado pelo editor (/editar) em 23/09/2026, 11:29:11.
+/* Gerado pelo editor (/editar) em 28/09/2026, 19:46:17.
    Substitua o data.js do projeto por este e faça git push. */
 window.LINKTREE = {
   "profile": {
@@ -8,9 +8,15 @@ window.LINKTREE = {
   },
   "links": [
     {
-      "label": "Cursos Vírgula",
-      "href": "https://cursos.virgulacontabil.com.br",
-      "icon": "cap",
+      "label": "Consulta Simples Nacional",
+      "href": "https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21",
+      "icon": "building",
+      "primary": true
+    },
+    {
+      "label": "Falar no WhatsApp",
+      "href": "https://wa.me/5575991161728",
+      "icon": "whatsapp",
       "primary": true
     },
     {
@@ -19,9 +25,9 @@ window.LINKTREE = {
       "icon": "user"
     },
     {
-      "label": "Falar no WhatsApp",
-      "href": "https://wa.me/5575991161728",
-      "icon": "whatsapp",
+      "label": "Cursos Vírgula",
+      "href": "https://cursos.virgulacontabil.com.br",
+      "icon": "cap",
       "primary": true
     },
     {
